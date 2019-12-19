@@ -1,0 +1,13 @@
+EAST = (enter -> EAST).
+WEST = (exit -> WEST).
+DIRECTOR = (open -> close -> empty -> DIRECTOR).
+const N=3
+CONTROL = (open -> OPEN[0]),
+		  OPEN[x:0..N] = (
+						  when(x<N) enter -> OPEN[x+1]
+						| when(x>0) exit -> OPEN[x-1]
+						| close -> CLOSED[x]),
+		  CLOSED[x:0..N] = (
+						  when (x>0) exit -> CLOSED[x-1]
+                      	| when (x==0) empty -> CONTROL).
+||MUSUM = (EAST || WEST || DIRECTOR || CONTROL).

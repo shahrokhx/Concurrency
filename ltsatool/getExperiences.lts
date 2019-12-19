@@ -1,0 +1,53 @@
+//----------------------------------------------------------
+//SWITCH = (actionX -> boom -> SWITCH
+//		 |actionX -> pooch -> SWITCH).
+
+//----------------------------------------------------------SWITCH
+SWITCH = (pushSw1 -> BOOM  |  pushSw2 -> POOCH),
+BOOM = (back1 -> SWITCH),
+POOCH = (back2 -> SWITCH).
+
+//----------------------------------------------------------CHAN
+CHAN = (in -> CHAN
+       |in -> out -> CHAN).
+
+//----------------------------------------------------------BUFF: single slot buffer
+BUFF = (in[i:0..3] -> out[i] -> BUFF).
+
+//----------------------------------------------------------SUM
+const N = 2
+range T = 0..N
+range R = 0..2*N
+
+SUM = (in[a:T][b:T] -> TOTAL[a+b]),
+TOTAL[s:R] = (out[s] -> SUM).
+
+//----------------------------------------------------------COUNT
+COUNT(N=3) = COUNT[0],
+COUNT[i:0..N] = (when(i<N) inc -> COUNT[i+1]
+				|when(i>0) dec -> COUNT[i-1]).
+
+//----------------------------------------------------------COUNTDOWN
+COUNTDOWN(N=3) = (start -> COUNTDOWN[N]),
+COUNTDOWN[i:0..3] = (
+					 when (i>0) tick -> COUNTDOWN[i-1] 
+				   | when (i==0)  beep -> STOP
+				   | stop -> STOP
+					 ).
+
+//----------------------------------------------------------TEST OUTPUT
+const False = 0
+P = (when(False) do->P ).
+
+//----------------------------------------------------------WRITER (test for extention)
+WRITER = (write[1] -> write[3] -> WRITER) + {write[0..3]}.
+
+//----------------------------------------------------------
+FILTER = (in[v:0..5] -> DECIDE[v]),
+DECIDE[v:0..5] = (when(v<3) out[v] -> FILTER
+				 |when(v>2) discard -> FILTER
+				 ).
+
+
+
+

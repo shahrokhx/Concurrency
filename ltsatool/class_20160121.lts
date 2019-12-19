@@ -1,0 +1,4 @@
+FILTER=(in[i:0..5] -> DECIDE[i]),
+DECIDE[i:0..5]=(when(i<3) out[i]->FILTER
+| when(i>2) discard ->FILTER
+).

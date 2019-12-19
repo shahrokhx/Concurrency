@@ -1,0 +1,140 @@
+
+EXIT = (in -> out -> EXIT).
+||OR = (a:EXIT || b:EXIT)/{in/{a.in,b.in}}.
+
+/*
+BIKE = (start -> (stop -> STOP | faster -> slower -> BIKE)).
+
+/*
+OVERFLOW = CAPACITY[0],
+CAPACITY[i:0..3] = (drip -> CAPACITY[i+1]).
+
+
+
+/*
+LCHAN = (in -> out -> LCHAN
+		|disconnect -> STOP
+		|in -> LCHAN
+		).
+
+/*
+property NEVER = STOP + {arrive,on,time}.
+
+/*
+TALK = ( arrive -> front ->TALK
+		|begin -> BEGIN),
+BEGIN = (arrive -> front -> BEGIN).
+
+
+/*
+//2011
+CUBE(N=4) = CUBE[0],
+CUBE[i:0..N] = ( when(i<N) [i*i*i] -> CUBE[i+1]
+				|when(i==N)[i*i*i] -> STOP).
+
+//-------------
+/*
+set A={heads,tails}
+HeadsOrTails = PICK,
+PICK = (pick[i:A] -> FLIP[i]),
+FLIP[i:A] = (flip[j:A] -> RESULT[i][j]),
+RESULT[i:A][j:A] = (when(i==j) win -> HeadsOrTails 
+				   |when(i!=j) lose-> HeadsOrTails
+					). 
+
+
+/*
+GATE = (in -> out -> GATE).
+||AND = (a:GATE || b: GATE)/{out/{a.out,b.out}}.
+
+
+
+/*
+CONSTRAIN = STOP+{north}.
+TURTLE = (north -> move -> TURTLE
+		| south -> move -> TURTLE).
+||SYS = (TURTLE || CONSTRAIN).
+
+
+/*
+property HAPPY = DAY,
+DAY = (wakeup->eat->STATE1),
+STATE1 = (sleep -> DAY
+		| read -> STATE3
+		| rest -> STATE1
+		| surf -> STATE2),
+STATE2 = (surf -> STATE2
+		| eat  -> STATE1),
+STATE3 = (eat  -> STATE1
+		|read  -> STATE3).
+
+
+
+
+
+
+
+/*
+PROGRAM = (write -> (compile -> CORRECT|compile->NOTCORRECT)),
+CORRECT = (ok->run-> STOP),
+NOTCORRECT = (error[1]->fix[1]->CHECK1),
+CHECK1 = (compile -> CORRECT
+		| compile -> error[2] -> fix[2] -> CHECK2),
+CHECK2 = (compile -> CORRECT | compile -> ERROR).
+
+
+
+
+/*
+const N=5
+range T=0..N
+
+ALARM = COUNTDOWN[N],
+COUNTDOWN[i:T] = (when(i>0 ) tick[i] -> COUNTDOWN[i-1] 
+				| when i!=0 snooze  -> ALARM 
+				| when i!=0 off -> STOP
+				| when(i==0) beep ->STOP
+				).
+
+//----------------------------------------2015
+/*
+TEA = PACK[3],
+PACK[i:0..3] = ( pack[i] -> PACK[i]
+				|when(i==0) buy -> PACK[3]
+				|when(i> 0) pack -> PACK[i-1]
+				|when(i> 1) double_pack -> PACK[i-2]
+				). 
+
+/*
+const N=5
+range T=1..N
+CARD = (choose[i:T] -> (when(i==3) win -> STOP)).
+//CARD = (choose[i:T]->(when(i==3) returnTo -> CARD)).
+
+
+/*
+property CAR = ON,
+ON = (sit->ON | seatBeltOff -> OFF),
+OFF = ({sit,loosen} -> OFF | seatBeltOn -> ON).
+
+
+
+
+/*
+const N=5
+range T=1..5
+CARD = CARD[1],
+CARD[i:T] = (choose[i]-> CARD[i+1]).
+
+
+
+/*
+const N=4
+range T=0..N
+CYCLE = CYCLE[0],
+CYCLE[i:T] = (when(i<N) in[i] -> CYCLE[i+1]
+			| when(i==N)in[i] -> CYCLE[0]
+			).
+*/
+
+

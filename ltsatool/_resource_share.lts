@@ -1,0 +1,12 @@
+/** Concurrency: State Models and Java Programs
+ *             Jeff Magee and Jeff Kramer
+ *  
+ */
+
+//RESOURCE = (printer.acquire->printer.release->RESOURCE).
+RESOURCE = (acquire->release->RESOURCE).
+USER = (printer.acquire->use->printer.release->USER).
+
+//||RESOURCE_SHARE = (a:USER || b:USER || {a,b}::printer:RESOURCE)/{a.printer.printer.acquire/a.printer.acquire,b.printer.printer.acquire/b.printer.acquire,a.printer.printer.release/a.printer.release, b.printer.printer.release/b.printer.release}.
+//||RESOURCE_SHARE = (a:USER || b:USER || {a,b}::printer:RESOURCE)/{a.printer/a.printer.printer,b.printer/b.printer.printer}.
+||RESOURCE_SHARE = (a:USER || b:USER || {a,b}::printer:RESOURCE).
